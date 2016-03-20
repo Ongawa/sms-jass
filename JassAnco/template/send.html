@@ -1,0 +1,34 @@
+{% extends "admin.html" %}
+{% block content_ok %}
+<section class="widget_form_admin">
+	<form id="form_reset">
+	<div id="div_detail">
+	    <label for="nombre">Cuenca</label>
+	    <select id="basin">
+	    	<option value="id">Elija Cuenca</option>
+			{% for item in basin %}
+	    		<option value="{{ item.basin_id }}">{{ item.basin_id }}</option>
+			{% endfor %}
+		</select>
+  	</div>
+  	<div id="div_detail">
+	    <label for="nombr">Lista Admin</label>
+	    <div class="scroll" id="div_ckeck">
+	    	{% for item in reservoir %}
+		    	<input type="checkbox" name="{{ item.reservoir_id }}" value="{{ item.reservoir_id }}">{{ item.reservoir_id }}
+				<br>
+			{% endfor %}
+	    </div>	     
+  	</div>
+  	<div id="div_detail">
+	    <label for="nombre">Mensaje</label>
+	    <input  id = "send" type="text" id="send"/>
+  	</div>
+  	<nav id = "buttons" >
+        <button type="button" id="send">Enviar</button>
+    </nav>
+    </form>
+
+
+<section/>
+{% endblock %}

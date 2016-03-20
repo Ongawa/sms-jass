@@ -1,0 +1,16 @@
+{% extends "index.html" %}
+{% block content_ok %}
+<section class="widget_login">
+	<form method="POST">                    
+    {% csrf_token %}
+
+    <input name="username" type="text" placeholder="User"/>
+    <br>
+    <input name="password" type="password" placeholder="Password"/>
+    <nav id = "buttons" >
+        <button type="submit" >Entrar</button>
+    </nav>
+</form>
+<section/>
+
+{% endblock %}

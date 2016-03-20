@@ -1,0 +1,224 @@
+<!doctype html>
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+
+<head>
+<meta charset="utf-8">
+<!-- Mobile viewport optimized: j.mp/bplateviewport -->
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link rel="shortcut icon" href="{{STATIC_URL}}style/img/logo_jass1.png"  type="image/x-icon" />
+
+<title>JASS</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+
+<!-- CSS-->
+<link href= "{{STATIC_URL}}bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href= "{{STATIC_URL}}bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+<link href= "{{STATIC_URL}}bootstrap/css/dataTables.bootstrap.css" rel="stylesheet"> 
+<link href= "{{STATIC_URL}}table/css/dataTables.tableTools.min.css" rel="stylesheet">
+<link href= "{{STATIC_URL}}clock/css/jquery.countdownTimer.css" rel="stylesheet"/>
+
+<link href= "{{STATIC_URL}}style/css/normalize.css" rel="stylesheet">
+<link href= "{{STATIC_URL}}style/css/grid.css" rel="stylesheet">
+<link href= "{{STATIC_URL}}style/css/superfish.css" rel="stylesheet">
+<link href= "{{STATIC_URL}}style/css/flexslider.css" rel="stylesheet">
+<link href= "{{STATIC_URL}}style/css/style.css" rel="stylesheet">
+
+
+
+<style type="text/css" media="screen">
+	.input-sm {
+    	height: 20px;
+    }	
+    .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+    padding: 3px;
+	}
+	table {
+    	font-size: small;
+	}
+</style>
+<!-- end CSS-->
+
+ 
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script src="{{STATIC_URL}}jquery/js/jquery.min.js"></script>
+<script src="{{STATIC_URL}}bootstrap/js/bootstrap.min.js"></script>
+<script src="{{STATIC_URL}}bootstrap/js/jquery.dataTables.min.js"></script>
+<script src="{{STATIC_URL}}bootstrap/js/dataTables.bootstrap.js"></script>
+<script src="{{STATIC_URL}}table/js/dataTables.tableTools.js"></script>
+<script src="{{STATIC_URL}}bootstrap/js/moment.min.js"></script>
+<script src="{{STATIC_URL}}bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+<script src="{{STATIC_URL}}clock/js/jquery.countdownTimer.js"></script>
+<script src="{{STATIC_URL}}table/js/sortTable.js"></script>
+
+
+<script src="{{STATIC_URL}}style/js/jquery.flexslider-min.js"></script>
+<script src='{{STATIC_URL}}style/js/summary.js'></script>
+<script src='{{STATIC_URL}}style/js/pie.js'></script>
+
+<script src='{{STATIC_URL}}export/js/tableExport.js'></script>
+<script src='{{STATIC_URL}}export/js/jquery.base64.js'></script>
+<script src='{{STATIC_URL}}export/js/html2canvas.js'></script>
+<script src='{{STATIC_URL}}export/jspdf/libs/sprintf.js'></script>
+<script src='{{STATIC_URL}}export/jspdf/jspdf.js'></script>
+<script src='{{STATIC_URL}}export/jspdf/libs/base64.js'></script>
+<!-- end JS-->
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+	    $('#example').dataTable(
+	      {
+	      	"language": {
+            "lengthMenu": "Mostrar _MENU_ Registros",
+            "zeroRecords": "No hay datos",
+            "info": "Mostrando página _PAGE_ de _PAGES_",
+            "infoEmpty": "Sin datos",
+            "infoFiltered": "(Filtrado de _MAX_ total datos)",
+            "sSearch":       	"Buscar",
+            "oPaginate": {
+				"sFirst":    	"Primero",
+				"sPrevious": 	"Anterior",
+				"sNext":     	"Siguiente",
+				"sLast":     	"Último"
+			}
+        	},
+	       dom: 'T<"clear">lfrtip',
+	        tableTools: {
+	        "aButtons": [
+	         {
+	          "sExtends": "xls",
+	          "sAction": "flash_save",
+	          "sCharSet": "utf16le",
+	         }
+	         ,
+	          {
+	          "sExtends": "pdf",
+	          "sPdfOrientation": "landscape",
+	          "sPdfMessage": "Reportes Jass Anco"
+	         },
+	         {
+                "sExtends": "print",
+                "sButtonText": "Imprimir",
+                "sInfo": "Presionar Esc para salir"
+            }
+	        ]
+	       }
+
+	      }
+	      );
+	   
+
+	/*$("a#csv").click(function()
+    {
+    	alert("sssssssss");
+          $('#example').tableExport(
+           {type:'csv',escape:'false'});
+    });
+  
+   	$("a#excel").click(function()
+    {
+          $('#example').tableExport(
+           {type:'excel',escape:'false'});
+    });
+
+   	$("a#doc").click(function()
+    {
+          $('#example').tableExport(
+           {type:'doc',escape:'false'});
+    });
+   
+   	$("a#png").click(function()
+    {
+          $('#example').tableExport(
+           {type:'png',escape:'false'});
+    });
+
+    $("a#pdf").click(function()
+    {
+          $('#example').tableExport(
+           {type:'pdf',escape:'false'});
+    });*/
+     });
+
+</script>
+
+
+
+</head>
+
+<body onLoad="setTimeout(function() {window.scrollTo(0, 1)}, 100)" id="home">
+
+  <div id="container" class="clearfix">
+  
+<!-- header area -->
+    <header>
+		       
+        <div id="banner">        
+        	<div id="logo"><img src="{{STATIC_URL}}style/img/LogoJASS.png" width="960" height="200" alt="logo"></div>
+            
+			<hgroup>
+			  <h1></h1>
+				<h2></h2>
+			</hgroup>            
+        </div>
+        
+        <nav id="topnav" role="navigation" class="clearfix">  
+        	<ul class="sf-menu" id="mobileselect">
+			<li class="current">
+				<a href="/">Inicio</a>
+			</li>
+			<li>
+				<a href="/list_pay">Resumen</a>
+			</li>
+			<li>
+				<a href="/map">Mapa</a>
+			</li>
+			<li>
+				<a href="/pie">Gráfico</a>
+			</li>
+			<li>
+				<a href="/new_message">Nuevos Mensajes</a>
+			</li>
+			<li>
+				<a href="/help">Ayuda</a>
+			</li>
+			<li>
+				<a href="/login">Administración</a>
+			</li>	
+		</ul>     
+		</nav><!-- #access -->
+        
+<!-- responsive flexslider image slideshow -->
+    <div class="flexslider">
+    	{% block content_ok %}
+		{% endblock %}   
+	</div>
+<!-- flexslider -->
+        
+    </header><!-- end header -->
+    
+
+<!-- main content area -->   
+    <div id="main" role="main">
+    
+
+  </div><!-- #end main -->
+    
+
+</div> <!--! end of #container --> 
+<!-- footer area -->    
+<footer>	
+	<div id="colophon" class="clearfix">
+    	<img src="{{STATIC_URL}}style/img/IntegrantesJASS.png" width="960" height="200" alt="logo">
+    </div>
+    <center>
+   		 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Licencia Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />Esta obra está bajo <br><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons 4.0 Internacional</a>.
+    </center>
+</footer>
+
+
+	
+</body>
+</html>

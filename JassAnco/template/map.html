@@ -1,0 +1,170 @@
+{% extends "index.html" %}
+{% block content_ok %}
+
+<style>
+      html, body, #map-canvas {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
+      #legend {
+        font-family: Arial, sans-serif;
+        background: #fff;
+        padding: 10px;
+        margin: 10px;
+        border: 3px solid #000;
+      }
+      #legend h3 {
+        margin-top: 0;
+      }
+      #legend img {
+        vertical-align: middle;
+      }
+</style>
+
+<section class="widget_map">
+      <style>
+        html, body, #map-canvas {
+          height: 100%;
+          width:100%; 
+          margin: 0px;
+          padding: 0px
+        }
+      </style>
+      <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+      <script>
+      var list_data = new Array();
+      var list_flag = new Array();
+      var list_manager = new Array();
+      var k = 0;
+      var flag;
+      var dir_image = 'http://162.243.193.56:8222/static/style/img/';
+      var image = dir_image+'t.png';
+      
+      var icont = dir_image+'lt.png';
+      var iconf = dir_image+'lf.png';
+
+      var count_t = 0;
+      var count_f = 0;
+
+      var manager = "<br>";
+
+
+      {% for item in reservoir %} 
+              manager = "<br>";           
+              {% for val in item.manager_id.all %}
+                try {
+                  manager += String({{ val.phone }})+"<br>";
+                }
+                catch (e) {
+                  manager += ""+"<br>";
+                }
+                
+              {% endfor %}
+
+          var data =  ['{{item.reservoir_id}}','{{item.basin_id}}','{{item.number_user}}','{{item.position}}',manager];
+          list_data[k] = data;
+          k++;
+      {% endfor %}
+       k = 0;
+      {% for item in measurement %}
+          var data =  ['{{item.reservoir_id}}','{{item.time}}'];
+          list_flag[k] = data;
+          k++;
+      {% endfor %}
+
+      var map;
+      var lon_lat;
+      var point_position;
+      var marker;
+      function initialize() {
+          lon_lat = list_data[0][3].split(",");
+          point_position = new google.maps.LatLng(parseFloat(lon_lat[0]),parseFloat(lon_lat[1]));
+              var mapOptions = {
+              zoom: 16,
+              center: point_position,
+              mapTypeId: google.maps.MapTypeId.SATELLITE
+          };
+          map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
+          for(var k = 0;k<list_data.length;k++){
+              lon_lat = list_data[k][3].split(",");
+
+              point_position = new google.maps.LatLng(parseFloat(lon_lat[0]),parseFloat(lon_lat[1]));
+
+              flag = list_flag[k][1];
+              image = dir_image+'t.png';
+              count_t++;
+              if(flag=="00:00:00"){
+                image = dir_image+'f.png';
+                count_f++;
+                count_t--;
+              }
+              
+              marker = new google.maps.Marker({
+                    position: point_position, 
+                    map: map, 
+                    //draggable:true,
+                    animation: google.maps.Animation.DROP,
+                    icon: image,
+                    title:list_data[k][0] + " " + list_data[k][1]
+              });
+
+              /* draw circle*/
+              var populationOptions = {
+                strokeColor: '#FFFF00',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: '#00FF00',
+                fillOpacity: 0.35,
+                map: map,
+                center: point_position,
+                radius: 30
+              };
+              cityCircle = new google.maps.Circle(populationOptions);
+
+
+              var contentString = 
+                '<div id="content1">'+
+                '<p> <b>Reservorio:</b>'+ list_data[k][0] + "</p>" +
+                '<p> <b>Cuenca:</b>'+ list_data[k][1] + "</p>" +
+                '<p> <b>Nro. Usuarios:</b>'+ list_data[k][2] + "</p>" +
+                '<p> <b>Admin:</b>'+ list_data[k][4] + "</p>" +
+                '</div>';
+
+                var infowindow = new google.maps.InfoWindow();
+
+                google.maps.event.addListener(marker,'click', (function(marker,contentString,infowindow){ 
+                  return function() {
+                     infowindow.setContent(contentString);
+                     infowindow.open(map,marker);
+                  };
+                })(marker,contentString,infowindow)); 
+          }
+      var legend = document.getElementById('legend');
+      var div = document.createElement('div');
+
+      var type = 'noinfo';
+      var div = document.createElement('div');
+      div.innerHTML = '<img src="' + iconf + '"> ' + 'Faltantes: '+count_f;
+      legend.appendChild(div);
+
+      var type = 'okinfo';
+      var div = document.createElement('div');
+      div.innerHTML = '<img src="' + icont + '"> ' + 'Recibidos: '+count_t;
+      legend.appendChild(div);
+
+      map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend);
+
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+
+
+    <div id="map-canvas"></div>
+    <div id="legend"><h3>Reportes</h3></div>
+
+<section/>
+{% endblock %}  
+
+

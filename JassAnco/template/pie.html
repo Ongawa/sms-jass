@@ -1,0 +1,41 @@
+{% extends "index.html" %}
+{% block content_ok %}
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var l = new Array();
+        l[0] = ['Cuenca', 'Reservorios'];
+        var k = 0;
+        {% for item in basin%}
+              k++;
+              l[k]=["{{ item.basin_id }}",3];
+        {% endfor %}
+        var data = google.visualization.arrayToDataTable(l);
+
+        var options = {
+          title: 'Cuencas'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+
+        chart.draw(data, options);
+      }
+    </script>
+  
+    <section class="widget_pie">
+    <div id="div_search">
+        <label for="nombre">Cuenca:</label>
+        <select id="basin_pie">
+          <option value="id">Elija Cuenca</option>
+          {% for item in basin%}
+              <option value="{{ item.basin_id }}">{{ item.basin_id }}</option>
+          {% endfor %}
+      </select>
+      </div>
+      <div id="chart_div" ></div>
+    </section>
+    
+
+{% endblock %}  
+

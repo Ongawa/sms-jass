@@ -1,0 +1,14 @@
+{% extends "admin/base.html" %}
+<style type="text/css" media="screen">
+	.sidebar-menu {
+    background-color: #E05454;}
+</style>
+{% load i18n %}
+
+{% block title %}{{ title }} | {% trans 'JASS' %}{% endblock %}
+
+{% block branding %}
+   <h3 id="site-name" style="color:#0099FF">{% trans 'Administrador JASS ANCO' %}</h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
